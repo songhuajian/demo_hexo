@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>AngularJS遇到的问题 | 人总是要有追求的！加油吧！</title>
+  <meta name="author" content="宋华健" />
+
+  
+  <meta name="description" content="transclude
+嵌入的意思,也就是说你是否需要将你的指令（内部）的元素嵌入到你的（模板）中去，默认为false。
+如果你需要的话，那么就需要将transclude设置为true。
+如果将这个值设置为true的话，就要配合angular的ng-transclude指令来进行使用，
+
+代码实现
+1" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="AngularJS遇到的问题" />
+  <meta property="og:site_name" content="人总是要有追求的！加油吧！" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="人总是要有追求的！加油吧！" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">人总是要有追求的！加油吧！</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-10-05T08:58:40.000Z"><a href="/2016/10/05/AngularJS遇到的问题/">2016-10-05</a></time>
+      
+      
+  
+    <h1 class="title">AngularJS遇到的问题</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="transclude"><a href="#transclude" class="headerlink" title="transclude"></a>transclude</h3><hr>
+<pre><code>嵌入的意思,也就是说你是否需要将你的指令（内部）的元素嵌入到你的（模板）中去，默认为false。
+如果你需要的话，那么就需要将transclude设置为true。
+如果将这个值设置为true的话，就要配合angular的ng-transclude指令来进行使用，
+</code></pre><hr>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><hr>
+<pre><code>1.html中的代码
+&lt;!--  指令a-transclude 内部含有元素--&gt;
+&lt;breadcrumb&gt;指令（内部）内容&lt;/breadcrumb&gt;
+</code></pre><hr>
+<pre><code>2.js中的代码
+myApp.directive(&apos;breadcrumb&apos;, [&apos;$parse&apos;, function($parse) {
+    return {
+        templateUrl: &apos;tmpls/breadcrumb.html&apos;,
+        transclude:true
+    }
+}]);
+</code></pre><hr>
+<pre><code>3.tmpls/breadcrumb.html模板中的代码
+&lt;ol&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;#&quot; ng-transclude&gt;模板1&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;模板2&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ol&gt;
+模板由两部分组成，一部分是含有ng-transclude指令的，一部分是不含有这个指令的
+</code></pre><hr>
+<h3 id="ng-if-跟-ng-show-hide-的区别"><a href="#ng-if-跟-ng-show-hide-的区别" class="headerlink" title="ng-if 跟 ng-show/hide 的区别"></a>ng-if 跟 ng-show/hide 的区别</h3><hr>
+<pre><code>1. ng-if 在后面表达式为 true 的时候才创建这个 dom 节点。
+ng-show 是初始时就创建了，用 display:block 和 display:none 来控制显示和不显示。
+</code></pre><hr>
+<pre><code>2. ng-if 会（隐式地）产生新作用域。
+ ng-switch 、 ng-include 等会动态创建一块界面的也是如此。
+ 这样会导致，在 ng-if 中用基本变量绑定 ng-model ，
+ 并在外层 div 中把此 model 绑定给另一个显示区域，
+ 内层改变时，外层不会同步改变，因为此时已经是两个变量了。
+</code></pre><hr>
+<pre><code>&lt;p&gt;{{name}}&lt;/p&gt;
+&lt;div ng-if=&quot;true&quot;&gt;
+    &lt;input type=&quot;text&quot; ng-model=&quot;name&quot;&gt;
+&lt;/div&gt;
+ng-show 不存在此问题，因为它不自带一级作用域。
+</code></pre><hr>
+<pre><code>避免这类问题出现的办法是，始终将页面中的元素绑定到对象的属性（data.x）
+而不是直接绑定到基本变量（x）上。
+</code></pre><hr>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.songhuajian.top">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/09/18/原型/">原型</a>
+      </li>
+    
+      <li>
+        <a href="/2016/11/21/Sublime-text-3-部分插件/">Sublime text 3 部分插件</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/15/Windows下的nodejs管理工具nvm/">Windows下的nodejs管理工具nvm</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/11/Angular路由/">Angular路由</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/05/AngularJS遇到的问题/">AngularJS遇到的问题</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2017 宋华健
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>

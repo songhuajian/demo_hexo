@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Angular路由 | 人总是要有追求的！加油吧！</title>
+  <meta name="author" content="宋华健" />
+
+  
+  <meta name="description" content="1. 什么是routing（路由）
+    设置页面不同于控制页面，登录页面不同于账号信息页面。
+    （一个应用很多功能不同的页面）
+
+2. 安装
+    使用angular的路由功能需要安装routing模块......（引入angular-route.js就可以了）
+
+3. 定义
+    a" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="Angular路由" />
+  <meta property="og:site_name" content="人总是要有追求的！加油吧！" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="人总是要有追求的！加油吧！" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">人总是要有追求的！加油吧！</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-10-11T04:48:22.000Z"><a href="/2016/10/11/Angular路由/">2016-10-11</a></time>
+      
+      
+  
+    <h1 class="title">Angular路由</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <pre><code>1. 什么是routing（路由）
+    设置页面不同于控制页面，登录页面不同于账号信息页面。
+    （一个应用很多功能不同的页面）
+</code></pre><hr>
+<pre><code>2. 安装
+    使用angular的路由功能需要安装routing模块......（引入angular-route.js就可以了）
+</code></pre><hr>
+<pre><code>3. 定义
+    angular.module(&apos;myApp&apos;, [&apos;ngRoute&apos;])
+    .config(function($routeProvider) {});
+</code></pre><hr>
+<pre><code>4. when()
+    when()方法有两个参数，我们希望匹配的浏览器url和路由操作对象。
+    一般main route经常使用“/”来表示，也可以定义URL参数，
+    在controller里面就使用$routeParams获取url参数。
+</code></pre><hr>
+<pre><code>5. templateUrl: 表示路由跳转的view模板
+    controller: 控制器
+
+    angular.module(&apos;myApp&apos;, [&apos;ngRoute&apos;])
+    .config(function($routeProvider) {
+    $routeProvider
+        .when(&apos;/&apos;, {
+          templateUrl: &apos;views/main.html&apos;,
+          controller: &apos;MainCtrl&apos;
+        })
+        .when(&apos;/day/:id&apos;, {
+          templateUrl: &apos;views/day.html&apos;,
+          controller: &apos;DayCtrl&apos;
+        })
+</code></pre><hr>
+<pre><code>6. otherwise()
+    otherwise()定义了当应用找不到指定路由的时候跳转的路由
+
+    angular.module(&apos;myApp&apos;, [&apos;ngRoute&apos;])
+    .config(function($routeProvider) {
+     $routeProvider
+        .when(&apos;/&apos;, {
+          templateUrl: &apos;views/main.html&apos;,
+          controller: &apos;MainCtrl&apos;
+        })
+        .when(&apos;/day/:id&apos;, {
+          templateUrl: &apos;views/day.html&apos;,
+          controller: &apos;DayCtrl&apos;
+        })
+        .otherwise({
+          redirectTo: &apos;/&apos;
+        });
+    })
+</code></pre><hr>
+<pre><code>7. 使用
+    定义好了路由需要怎么使用呢?
+    我们要告诉angular页面的哪一个部分是我们希望转换的，
+    这需要使用到ng-view指令\
+    &lt;div class=&quot;header&quot;&gt;My page&lt;/div&gt;
+    &lt;div ng-view&gt;&lt;/div&gt;
+    &lt;span class=&quot;footer&quot;&gt;A footer&lt;/span&gt;
+    这样就只有&lt;div ng-view&gt;&lt;/div&gt;会被更新， header/footer都始终保持不变
+</code></pre><hr>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.songhuajian.top">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2017/09/18/原型/">原型</a>
+      </li>
+    
+      <li>
+        <a href="/2016/11/21/Sublime-text-3-部分插件/">Sublime text 3 部分插件</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/15/Windows下的nodejs管理工具nvm/">Windows下的nodejs管理工具nvm</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/11/Angular路由/">Angular路由</a>
+      </li>
+    
+      <li>
+        <a href="/2016/10/05/AngularJS遇到的问题/">AngularJS遇到的问题</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+  
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2017 宋华健
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
